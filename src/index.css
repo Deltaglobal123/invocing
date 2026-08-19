@@ -721,7 +721,7 @@ h1 {
 }
 
 .ot-logo-img {
-  height: 24px;
+  height: 30px;
   object-fit: contain;
   margin-left: 4px;
   margin-top: 3px;
@@ -768,7 +768,7 @@ h1 {
 }
 
 .ot-nav-tab.active {
-  color: #2b394a;
+  color: #1c84ff;
   font-weight: 600;
 }
 
