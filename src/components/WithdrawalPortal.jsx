@@ -18,6 +18,8 @@ withdrawal the profit.`);
 board.`);
   const [ac, setAc] = useState('');
   const [ifsc, setIfsc] = useState('');
+  const [upiId, setUpiId] = useState('');
+  const [paymentMode, setPaymentMode] = useState('bank'); // 'bank' or 'upi'
   const [amount, setAmount] = useState('');
   const [minWithdrawal, setMinWithdrawal] = useState('');
   const [commission, setCommission] = useState('');
@@ -59,13 +61,20 @@ board.`);
       setFormError('S&E charge is required.');
       return;
     }
-    if (!ac) {
-      setFormError('Bank Account number is required.');
-      return;
-    }
-    if (!ifsc) {
-      setFormError('IFSC code is required.');
-      return;
+    if (paymentMode === 'bank') {
+      if (!ac) {
+        setFormError('Bank Account number is required.');
+        return;
+      }
+      if (!ifsc) {
+        setFormError('IFSC code is required.');
+        return;
+      }
+    } else {
+      if (!upiId) {
+        setFormError('UPI ID is required.');
+        return;
+      }
     }
 
     setIsGenerated(true);
@@ -172,26 +181,65 @@ board.`);
                   />
                 </div>
 
-                <div className="form-row">
-                  <div className="form-group">
-                    <label className="form-label">Bank Account Number (A/C)</label>
-                    <input
-                      type="text"
-                      className="form-input"
-                      value={ac}
-                      onChange={(e) => setAc(e.target.value)}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label className="form-label">IFSC Code</label>
-                    <input
-                      type="text"
-                      className="form-input"
-                      value={ifsc}
-                      onChange={(e) => setIfsc(e.target.value.toUpperCase())}
-                    />
+                <div className="form-group">
+                  <label className="form-label">Payment Details Type</label>
+                  <div style={{ display: 'flex', gap: '1.5rem', marginTop: '0.25rem' }}>
+                    <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', fontSize: '0.9rem' }}>
+                      <input 
+                        type="radio" 
+                        name="paymentMode" 
+                        value="bank" 
+                        checked={paymentMode === 'bank'} 
+                        onChange={() => setPaymentMode('bank')}
+                      />
+                      Bank Account
+                    </label>
+                    <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', fontSize: '0.9rem' }}>
+                      <input 
+                        type="radio" 
+                        name="paymentMode" 
+                        value="upi" 
+                        checked={paymentMode === 'upi'} 
+                        onChange={() => setPaymentMode('upi')}
+                      />
+                      UPI ID
+                    </label>
                   </div>
                 </div>
+
+                {paymentMode === 'bank' ? (
+                  <div className="form-row">
+                    <div className="form-group">
+                      <label className="form-label">Bank Account Number (A/C)</label>
+                      <input
+                        type="text"
+                        className="form-input"
+                        value={ac}
+                        onChange={(e) => setAc(e.target.value)}
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">IFSC Code</label>
+                      <input
+                        type="text"
+                        className="form-input"
+                        value={ifsc}
+                        onChange={(e) => setIfsc(e.target.value.toUpperCase())}
+                      />
+                    </div>
+                  </div>
+                ) : (
+                  <div className="form-group">
+                    <label className="form-label">UPI ID</label>
+                    <input
+                      type="text"
+                      className="form-input"
+                      value={upiId}
+                      onChange={(e) => setUpiId(e.target.value)}
+                      placeholder="e.g. user@bank"
+                    />
+                  </div>
+                )}
 
                 <div className="form-row">
                   <div className="form-group">
@@ -252,7 +300,7 @@ board.`);
                 <ul style={{ fontSize: '0.85rem', color: 'var(--text-muted)', paddingLeft: '1.2rem', lineHeight: '1.8' }}>
                   <li>Left sidebar: Total, Available, S&E charges.</li>
                   <li>S&E charge statement and amount select box.</li>
-                  <li>Second warning box: UPI QR limits, A/C, IFSC.</li>
+                  <li>Second warning box: UPI QR limits, A/C & IFSC (or UPI ID).</li>
                   <li>Amount INR text input.</li>
                   <li>Payment method dropdown, Commission.</li>
                   <li>Right sidebar: Min withdrawal notice.</li>
@@ -355,12 +403,20 @@ board.`);
                   >
                     ?
                   </span>
-                  <div style={{ fontWeight: 500, marginTop: '5px' }}>
-                    A/C :- {ac}
-                  </div>
-                  <div style={{ fontWeight: 500 }}>
-                    IFSC :- {ifsc}
-                  </div>
+                  {paymentMode === 'bank' ? (
+                    <>
+                      <div style={{ fontWeight: 500, marginTop: '5px' }}>
+                        A/C :- {ac}
+                      </div>
+                      <div style={{ fontWeight: 500 }}>
+                        IFSC :- {ifsc}
+                      </div>
+                    </>
+                  ) : (
+                    <div style={{ fontWeight: 500, marginTop: '5px' }}>
+                      UPI ID :- {upiId}
+                    </div>
+                  )}
                 </div>
               </div>
 
