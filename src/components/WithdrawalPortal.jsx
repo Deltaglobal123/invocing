@@ -320,7 +320,7 @@ board.`);
               <span></span>
             </button>
             <img 
-              src="/olymp-logo.png" 
+              src={`${import.meta.env.BASE_URL}olymp-logo.png`}
               alt="Olymp Trade Logo" 
               className="ot-logo-img" 
               onClick={() => setIsGenerated(false)}
@@ -361,7 +361,7 @@ board.`);
               {/* Alert 1: Name and S&E notice */}
               <div className="ot-alert-box">
                 <div className="ot-alert-icon-wrapper">
-                  <img src="/olymp-arrow.png" alt="Notice Icon" className="ot-alert-pointer-icon" />
+                  <img src={`${import.meta.env.BASE_URL}olymp-arrow.png`} alt="Notice Icon" className="ot-alert-pointer-icon" />
                 </div>
                 <p className="ot-alert-text" style={{ whiteSpace: 'pre-line' }}>
                   {warningText}
@@ -380,7 +380,7 @@ board.`);
               {/* Alert 2: Bank information & UPI QR limits */}
               <div className="ot-alert-box">
                 <div className="ot-alert-icon-wrapper">
-                  <img src="/olymp-arrow.png" alt="Notice Icon" className="ot-alert-pointer-icon" />
+                  <img src={`${import.meta.env.BASE_URL}olymp-arrow.png`} alt="Notice Icon" className="ot-alert-pointer-icon" />
                 </div>
                 <div className="ot-alert-text" style={{ fontWeight: 600 }}>
                   UPI QR up to {formatINR(available)} 
