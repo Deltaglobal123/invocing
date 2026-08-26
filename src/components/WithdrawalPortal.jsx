@@ -11,6 +11,7 @@ const WithdrawalPortal = () => {
   const [total, setTotal] = useState('');
   const [available, setAvailable] = useState('');
   const [seCharge, setSeCharge] = useState('');
+  const [seChargeLabel, setSeChargeLabel] = useState('S & E charge');
   const [warningText, setWarningText] = useState(`has to pay
 Securities & Exchange charge to
 withdrawal the profit.`);
@@ -57,8 +58,12 @@ board.`);
       setFormError('Available balance is required.');
       return;
     }
+    if (!seChargeLabel.trim()) {
+      setFormError('S & E Charge Heading/Label is required.');
+      return;
+    }
     if (!seCharge) {
-      setFormError('S&E charge is required.');
+      setFormError(`${seChargeLabel} is required.`);
       return;
     }
     if (paymentMode === 'bank') {
@@ -142,14 +147,25 @@ board.`);
                   </div>
                 </div>
 
-                <div className="form-group">
-                  <label className="form-label">S & E Charge (INR)</label>
-                  <input
-                    type="number"
-                    className="form-input"
-                    value={seCharge}
-                    onChange={(e) => setSeCharge(e.target.value)}
-                  />
+                <div className="form-row">
+                  <div className="form-group">
+                    <label className="form-label">S & E Charge Heading/Label</label>
+                    <input
+                      type="text"
+                      className="form-input"
+                      value={seChargeLabel}
+                      onChange={(e) => setSeChargeLabel(e.target.value)}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label className="form-label">S & E Charge Value (INR)</label>
+                    <input
+                      type="number"
+                      className="form-input"
+                      value={seCharge}
+                      onChange={(e) => setSeCharge(e.target.value)}
+                    />
+                  </div>
                 </div>
 
                 {/* Warning Alert Content */}
@@ -351,7 +367,7 @@ board.`);
                 <span className="ot-stat-value">{formatINR(available)}</span>
               </div>
               <div className="ot-stat-item">
-                <span className="ot-stat-label">S & E charge</span>
+                <span className="ot-stat-label">{seChargeLabel}</span>
                 <span className="ot-stat-value">{formatINR(seCharge)}</span>
               </div>
             </div>
