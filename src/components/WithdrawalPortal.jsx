@@ -491,7 +491,7 @@ board.`);
                 used to deposit money into<br />
                 your account.
               </p>
-              <p style={{ marginTop: '16px' }}>
+              <p className="ot-right-column-bold-info" style={{ marginTop: '16px' }}>
                 For more information,<br />
                 please refer to the <span className="ot-help-center-link">Help<br />
                 Center</span>.

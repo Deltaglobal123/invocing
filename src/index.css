@@ -991,7 +991,7 @@ h1 {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  color: #556475;
+  color: #2b394a;
   font-size: 13px;
   line-height: 1.6;
 }
@@ -1005,6 +1005,11 @@ h1 {
 
 .ot-right-column p {
   margin: 0;
+}
+
+.ot-right-column-bold-info {
+  color: #000000;
+  font-weight: 700;
 }
 
 .ot-help-center-link {
